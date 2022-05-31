@@ -11,7 +11,7 @@ export default function RadioGroup(props: any) {
       <span className="text-black">Lenguaje</span>
       <div className="flex flex-col space-y-2">
         {props.list.map((radio: string) => (
-          <Radio id={radio} content={radio} name="Lang" />
+          <Radio key={radio} value={radio} id={radio} content={radio} name="Lang" />
         ))}
       </div>
     </div>

@@ -43,7 +43,7 @@ export default function EmailTest (){
     state.id=e.target.id.value;
     state.nombre=e.target.name.value;
     state.email=e.target.email.value;
-    //state.lenguaje=e.target.lenguaje.value;
+    state.lenguaje=e.target.Lang.value;
     console.log(state);
   };
 
@@ -59,7 +59,7 @@ return (
           { pl: 'Correo', name: 'email', type: 'email', icon: 'email' },
           { pl: 'Nombre', name: 'name', type: 'text', icon: 'user' },
         ].map((input) => (
-          <Input
+          <Input key={input.name}
             placeholder={input.pl} type={input.type}
             name={input.name} iconType={input.icon} addStyle="mb-2"
           />
