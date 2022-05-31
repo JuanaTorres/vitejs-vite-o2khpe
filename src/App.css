@@ -1,0 +1,19 @@
+@tailwind base;
+body {
+  @apply bg-lime-700 text-white text-center;
+}
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  #root {
+    @apply flex flex-col place-content-center md:h-screen;
+  }
+  .MynaButton {
+    
+  }
+}
+
+#icon {
+  max-width: 43px;
+}

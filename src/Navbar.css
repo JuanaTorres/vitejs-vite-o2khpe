@@ -1,0 +1,39 @@
+
+.NavbarItems{
+  background: linear-gradient(90deg, rgb(10,180,100) 0%, rgb(14, 146, 21) 100%);
+  height:  100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  position: relative;
+}
+.navbar-logo{
+  color: #fff;
+  justify-content: start;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.fa-react{
+  margin-left: 0.5rem;
+  font-size: 1.6rem;
+}
+.nav-menu{
+  display:grid;
+  grid-template-columns: repeat(5,auto);
+  grid-gap: 10px ;
+  list-style: none;
+  text-align: center;
+  width: 70vw;
+  justify-content: end;
+  margin-right: 2rem;
+}
+.nav-links{
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  font-style: italic;
+}
+.fa-computer-classic{
+  color: #fff;
+}
