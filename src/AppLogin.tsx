@@ -3,6 +3,7 @@ import PrimaryButton from './Starling/PrimaryButton';
 import BasicButton from './Starling/BasicButton';
 import Modal from './Starling/Modal';
 import returnFormDataAsJson from './easyFormData';
+import Cookies from 'universal-cookie';
 /*
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
@@ -13,7 +14,8 @@ export default function AppLogin() {
 
   const captureFormData = (e: any) => {
     e.preventDefault();
-
+    const cookies = new Cookies;
+    var result;
     let url =
       'http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/login';
     var id = e.target.id.value;
@@ -27,8 +29,14 @@ export default function AppLogin() {
       headers: headers,
     })
       .then((response) => response.text())
-      .then((response) => console.log(response.toString()));
-    //state.lenguaje=e.target.lenguaje.value;
+      .then((response) => result=(response.toString()));
+    if(result=="CAPITAN"||result=="ADMIN"){
+      cookies.set('user', id, { path: '/' });
+      console.log(cookies.get('user'));
+    }
+    //prueba sin confirmación
+    cookies.set('user', id, { path: '/' });
+    console.log(cookies.get('user'));
     console.log(psw);
   };
 
