@@ -1,9 +1,5 @@
 import Input from './Starling/Input';
 import PrimaryButton from './Starling/PrimaryButton';
-import BasicButton from './Starling/BasicButton';
-import Modal from './Starling/Modal';
-import returnFormDataAsJson from './easyFormData';
-import Cookies from 'universal-cookie';
 /*
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1

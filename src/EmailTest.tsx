@@ -1,8 +1,7 @@
-import Cookies from 'universal-cookie';
+
 import Input from './Starling/Input';
 import PrimaryButton from './Starling/PrimaryButton';
 import RadioGroup from './Starling/RadioGroup';
-import returnFormDataAsJson from './easyFormData'
 import NavCapitan from "./Navbar"
 import emailjs from 'emailjs-com';
 /*
@@ -11,9 +10,7 @@ import emailjs from 'emailjs-com';
 Form de agregar integrante y envio del correo de bienvenida
 */
 export default function EmailTest() {
-    const cookies = new Cookies;
-    const idCapitan=cookies.get('user');
-    console.log(cookies.get('user'));
+    var idCapitan=window.localStorage.getItem("users");
     var state = {
         email: "",
         asunto: "Bienvenido al Maratón",
@@ -53,13 +50,14 @@ export default function EmailTest() {
         emailjs.send("service_jnq30fj",
             "template_8v6pm8c", state, "1-3Z2otRwnMoyN3op")
             .then((response) => {
+                alert("Se a creado el integrante")
                 console.log('SUCCESS!', response.status, response.text);
             }, (err) => {
+                alert("Ocurrio un error al enviar el correo, contactate con un asesor")
                 console.log('FAILED...', err);
             });
     }
 
-    let loginData: any;
 
     const captureFormData = (e: any) => {
         e.preventDefault();

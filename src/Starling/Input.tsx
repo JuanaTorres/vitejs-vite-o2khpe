@@ -43,7 +43,7 @@ export default function ArtemisaInput(props: any) {
             )
           }
           className="block pl-12 w-full rounded-md border-gray-200 text-md transition pl-14 focus:border-lime-500 focus:ring-lime-500 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:opacity-75"
-        />
+          required/>
       </div>
     </div>
   );

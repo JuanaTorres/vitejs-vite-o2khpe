@@ -10,7 +10,7 @@ export default function Checkbox(props: any) {
         id="basic"
         type="checkbox"
         className="cursor-pointer rounded border-gray-300 text-lime-500 transition focus:ring-lime-400 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:opacity-75"
-      />
+        required/>
       <label
         htmlFor="basic"
         className="cursor-pointer truncate text-xs font-medium text-black"

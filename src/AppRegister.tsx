@@ -9,80 +9,88 @@ import returnFormDataAsJson from './easyFormData'
 Componente de React que contiene el formulario para el registro de capitanes
 */
 export default function AppLogin() {
-  var  state={
-    email: "",
-    asunto: "Bienvenido Capitan al Maratón",
-    mensaje: "",
-    id:"",
-    nombre:"",
-    lenguaje:""
-  };
+    var state = {
+        email: "",
+        asunto: "Bienvenido Capitan al Maratón",
+        mensaje: "",
+        id: "",
+        nombre: "",
+        lenguaje: ""
+    };
 
-function enviarEmail(){
-  modificarMensaje("Ahora eres el capitán del equipo y la Contraseña de equipo para ingresar es: XXX");
+    function enviarEmail() {
 
-  emailjs.send("service_jnq30fj",
-  "template_8v6pm8c", state,  "1-3Z2otRwnMoyN3op")
-.then((response) => {
-   console.log('SUCCESS!', response.status, response.text);
-}, (err) => {
-   console.log('FAILED...', err);
-});
-}
+          var url= "http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/capitanes";
+          var data={
+              "id": state.id,
+              "nombre": state.nombre,
+              "idLenguaje": state.lenguaje,
+              "email": state.email
+          }
+          fetch(url, {
+              method: 'POST',
+              body: JSON.stringify(data), // data can be `string` or {object}!
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          })
+          .then((response) => response.text)
+          .then(response => modificarMensaje(response));
 
-function modificarMensaje(m:any){
-  state.mensaje= m;
-}
-function obtenerLenguaje(event:any){
-    console.log(`Seleccionaste ${event.target.value}`);
-    state.lenguaje= event.target.value;
-    console.log(state);
-}  
-function obtenerNombre(event:any){
-  console.log(`Seleccionaste ${event.target.value}`);
-  state.nombre= event.target.value;
-}
-function obtenerEmail(event:any){
-  console.log(`Seleccionaste ${event.target.value}`);
-  state.email= event.target.value;
-}
-function obtenerID(event:any){
-  console.log(`Seleccionaste ${event.target.value}`);
-  state.id= event.target.value;
-}  
-let loginData: any;
 
-const captureFormData = (e: any) => {
-  e.preventDefault();
-  let rawFormData = new FormData(e.target);
-  loginData = returnFormDataAsJson(rawFormData);
-  console.log(loginData.values());
-};
+    }
 
-return (
-  <div className="p-3">
-    <div className="bg-white p-5 max-w-md">
-      <form onSubmit={captureFormData}>
-        {[
-          { pl: 'Número de Documento', name: 'id', type: 'text', icon: 'card' },
-          { pl: 'Correo', name: 'email', type: 'email', icon: 'email' },
-          { pl: 'Nombre', name: 'name', type: 'text', icon: 'user' },
-        ].map((input) => (
-          <Input
-            placeholder={input.pl} type={input.type}
-            name={input.name} iconType={input.icon} addStyle="mb-2"
-          />
-        ))}
-        <RadioGroup list={['C', 'C++', 'Java']} />
-        <PrimaryButton type="submit" className="mb-2">Registrar</PrimaryButton>
-      </form>
-      <div className="text-sm text-black">
-        {'¿Ya estás registrado? '}
-        <a href="/login" className="text-blue-500 underline">
-          ¡Inicia sesión!
-        </a>
-      </div>
-    </div>
-  </div>
-);
+    function modificarMensaje(m: any) {
+
+        state.mensaje = "Su contraseñan de equipo es: " + m;
+
+        emailjs.send("service_jnq30fj",
+            "template_8v6pm8c", state, "1-3Z2otRwnMoyN3op")
+            .then((response) => {
+                alert("Se a creado el integrante")
+                console.log('SUCCESS!', response.status, response.text);
+            }, (err) => {
+                alert("Ocurrio un error al enviar el correo, contactate con un asesor")
+                console.log('FAILED...', err);
+            });
+    }
+
+
+    const captureFormData = (e: any) => {
+        e.preventDefault();
+        state.id = e.target.id.value;
+        state.nombre = e.target.name.value;
+        state.email = e.target.email.value;
+        state.lenguaje = e.target.Lang.value;
+
+        console.log(state);
+        enviarEmail();
+    };
+
+    return (
+        <div className="p-3">
+            <div className="bg-white p-5 max-w-md">
+                <form onSubmit={captureFormData}>
+                    {[
+                        {pl: 'Número de Documento', name: 'id', type: 'text', icon: 'card'},
+                        {pl: 'Correo', name: 'email', type: 'email', icon: 'email'},
+                        {pl: 'Nombre', name: 'name', type: 'text', icon: 'user'},
+                    ].map((input) => (
+                        <Input key={input.name}
+                            placeholder={input.pl} type={input.type}
+                            name={input.name} iconType={input.icon} addStyle="mb-2" required
+                        />
+                    ))}
+                    <RadioGroup key="radio"list={['C', 'C++', 'Java']} required/>
+                    <PrimaryButton key="button" type="submit" className="mb-2">Registrar</PrimaryButton>
+                </form>
+                <div className="text-sm text-black">
+                    {'¿Ya estás registrado? '}
+                    <a href="/login" className="text-blue-500 underline">
+                        ¡Inicia sesión!
+                    </a>
+                </div>
+            </div>
+        </div>
+    );
 }
