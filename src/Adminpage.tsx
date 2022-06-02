@@ -1,61 +1,30 @@
-import DataTable1 from "react-data-table-component";
 
-import "datatables.net";
-import * as $ from "jquery";
-import "datatables.net-dt";
+import React, {useState, useEffect} from 'react';
+import DataTable1 from "react-data-table-component";
 /*
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
 Componente de React que contiene las tablas de admin
 */
+var checkedRows = [];
 
-let data;
-let equiposele;
-function fillTable(list) {
-    console.log(list);
-    data = ([
-        {id: 1, capitan: 'Gob', integrante: '2', fecha: "12/10/22", clave: "1212"},
-        {id: 2, capitan: 'Buster', integrante: '3', fecha: "12/10/22", clave: "1212"},
-        {id: 3, capitan: 'George Michael', integrante: '1', fecha: "12/10/22", clave: "1212"}
-    ])
-    list = data;
-    let table = document.getElementById("table");
-    if (document.getElementById("tBody") !== null) {
-        $('#myTable').remove();
-        table.removeChild(document.getElementById("tBody"));
-    }
-    //create the body of the table
-    let tBody = document.createElement("tbody");
-    tBody.id = "tBody";
-    if (list == "[]") {
-        alert("No se encontró información");
-    }
-    for (let i = 0; i < list.length; i++) {
-        const tr = document.createElement("tr");
-        let select = document.createElement("input");
-        select.id = "s";
-        select.type = "radio";
-        select.value = list[i]["id"];
-        select.addEventListener("click", function () {
-            equiposele=select.value;
-        });
-        console.log(select.value);
-        let td = document.createElement("td");
-        td.appendChild(select);
-        tr.appendChild(td);
-        for (const property in list[i]) {
-            td = document.createElement("td");
-            td.textContent = list[i][property];
-            tr.appendChild(td);
+function a(e: any) {
+    console.log(e.target.checked);
+    if (e.target.checked) {
+        checkedRows.push({id: e.target.id});
+    } else {
+        for (let i = 0; i < checkedRows.length; i++) {
+            if (checkedRows[i].id == e.target.id) {
+                checkedRows.splice(i, 1);
+            }
         }
-        tBody.appendChild(tr);
     }
-    table.appendChild(tBody);
-    $('#myTable');
-}
+    console.log(checkedRows);
+};
 
-function EliminarEquipo() {
-    console.log( equiposele);
+
+function EliminarEquipo(event:any) {
+    console.log( );
     //rederigir back para eliminar
 }
 
@@ -66,15 +35,49 @@ function imprimirCSV(event: any) {
 
 export default function Admin() {
 
+    const [users, setUsers] = useState([]);
+    const columns = [
+        {
+            name: '',
+            selector: row => <input type="checkbox" id={row.id} onClick={a}/>,
+            sortable: true,
+        },
+        {
+            name: 'ID Equipo',
+            selector: row => row.id,
+            sortable: true,
+        },
+        {
+            name: 'Capitán',
+            selector: row => row.nombreCapitan,
+            sortable: true,
+        },
+        {
+            name: 'Integrantes',
+            selector: row => row.integrantes,
+            sortable: true,
+        },
+        {
+            name: 'Fecha',
+            selector: row => row.fecha,
+            sortable: true,
+        },
+        {
+            name: 'Clave',
+            selector: row => row.clave,
+            sortable: true,
+        },
 
-    fetch('http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos', {
-        method: 'GET'
-    })
-        .then((response) => response.json())
-        .then(response => fillTable(response));
-
-
-
+    ];
+    const showData = async () => {
+        const response = await fetch('http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos')
+        const data = await response.json()
+        console.log(data)
+        setUsers(data)
+    }
+    useEffect(() => {
+        showData()
+    }, [])
     let state = {
         clicked: false
     }
@@ -106,20 +109,10 @@ export default function Admin() {
             <h1 style={{fontFamily: "initial"}}>Equipos de Maratón de Programación
             </h1>
             <div className="p-3">
-                <div className="bg-white p-5 max-w-md">
+                <div className="bg-white p-50000 max-w-md">
                     <h2 style={{color: "black"}}>Tabla de equipos</h2>
-                    <table keyField='id' id="table" className="display" style={{color: "black"}}>
-                        <thead>
-                        <tr>
-                            <th scope="col"> Seleccionar</th>
-                            <th scope="col">ID Equipo</th>
-                            <th scope="col">Capitán</th>
-                            <th scope="col">Integrantes</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Clave</th>
-                        </tr>
-                        </thead>
-                    </table>
+                    <DataTable1 id="eventsTable" data={users} columns={columns} className="table"
+                                style={{color: "black"}} pagination="true" />
                     <button type="button" onClick={imprimirCSV} style={{color: "black"}}>Imprimir CSV
                     </button>
                     <br/>
