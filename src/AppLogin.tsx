@@ -10,35 +10,54 @@ import Cookies from 'universal-cookie';
 Componente de React que contiene el formulario para el inicio de sesión de capitanes
 */
 export default function AppLogin() {
-    let loginData: any;
 
     const captureFormData = (e: any) => {
         e.preventDefault();
-        const cookies = new Cookies;
-        var result;
-        let url =
-            'http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/login';
+        let url = 'http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/login';
         var id = e.target.id.value;
         var psw = e.target.clave.value;
+
+        if (id === "" || psw == "") {
+            alert("Es necesario llenar los campos");
+            return;
+        }
+        psw = btoa(psw);
         let headers = new Headers();
         headers.append('Content-Type', 'text/json');
         headers.append('Authorization', 'Basic ' + btoa(id + ':' + psw));
 
         fetch(url, {
             method: 'GET',
-            headers: headers,
+            headers: headers
+        }).then((response) => {
+            if (!response.ok) {
+                cathError(response.text());
+                window.location.reload();
+            }
+            return response.text();
         })
-            .then((response) => response.text())
-            .then((response) => result = (response.toString()));
-        if (result == "CAPITAN" || result == "ADMIN") {
-            cookies.set('user', id, {path: '/'});
-            console.log(cookies.get('user'));
+            .then((response) => redirect(response.toString()))
+            .catch(error => cathError(error));
+
+        function cathError(error: any) {
+            e.target.id.value = "";
+            e.target.clave.value = "";
+            alert(error);
+            return;
         }
-        //prueba sin confirmación; falta el cifrado de base64
-        cookies.set('user', id, {path: '/'});
-        console.log(cookies.get('user'));
-        console.log(psw);
+
+        function redirect(response: any) {
+            if (response === "CAPITAN" || response === "ADMIN") {
+                window.localStorage.setItem('user', btoa(id));
+                window.localStorage.setItem('pws', psw);
+                if (response === "CAPITAN")
+                    window.location.href = "./capitan"
+                else
+                    window.location.href = "./admin"
+            }
+        }
     };
+
 
     return (
         <div className="w-full flex h-full flex-row justify-center content-center bg-transparent">
