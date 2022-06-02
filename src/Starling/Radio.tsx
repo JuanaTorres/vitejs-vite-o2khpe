@@ -9,8 +9,8 @@ export default function Radio(props: any) {
       <input
         id={props.id}
         type="radio"
-        name={props.name}
-        value={props.value}
+        value={props.id}
+        name="radio1"
         className="cursor-pointer rounded-full border-gray-300 text-lime-500 transition focus:ring-lime-400 disabled:cursor-not-allowed disabled:bg-lime-200 disabled:opacity-75"
         required/>
       <label

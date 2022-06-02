@@ -3,6 +3,7 @@ import Input from './Starling/Input';
 import PrimaryButton from './Starling/PrimaryButton';
 import RadioGroup from './Starling/RadioGroup';
 import returnFormDataAsJson from './easyFormData'
+import {useEffect, useState} from "react";
 /*
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
@@ -15,7 +16,8 @@ export default function AppLogin() {
         mensaje: "",
         id: "",
         nombre: "",
-        lenguaje: ""
+        lenguaje: "",
+        idLenguaje: ""
     };
 
     function enviarEmail() {
@@ -24,7 +26,7 @@ export default function AppLogin() {
           var data={
               "id": state.id,
               "nombre": state.nombre,
-              "idLenguaje": state.lenguaje,
+              "idLenguaje": state.idLenguaje,
               "email": state.email
           }
           fetch(url, {
@@ -35,7 +37,7 @@ export default function AppLogin() {
               }
           })
           .then((response) => response.text)
-          .then(response => modificarMensaje(response));
+          .then(response => modificarMensaje(response.toString()));
 
 
     }
@@ -61,12 +63,20 @@ export default function AppLogin() {
         state.id = e.target.id.value;
         state.nombre = e.target.name.value;
         state.email = e.target.email.value;
-        state.lenguaje = e.target.Lang.value;
-
-        console.log(state);
-        enviarEmail();
+        state.idLenguaje = e.target.radio1.value;
+        state.lenguaje=e.target.radio1.content;
+        console.log(e.target.radio1);
+       // enviarEmail();
     };
-
+    const [lenguajes, setLenguajes] = useState([]);
+    const showData = async () => {
+        const response = await fetch('http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/usuario/lenguajes')
+        const data = await response.json()
+        setLenguajes(data)
+    }
+    useEffect(() => {
+        showData()
+    }, [])
     return (
         <div className="p-3">
             <div className="bg-white p-5 max-w-md">
@@ -81,7 +91,7 @@ export default function AppLogin() {
                             name={input.name} iconType={input.icon} addStyle="mb-2" required
                         />
                     ))}
-                    <RadioGroup key="radio"list={['C', 'C++', 'Java']} required/>
+                    <RadioGroup key="12"list={lenguajes} required/>
                     <PrimaryButton key="button" type="submit" className="mb-2">Registrar</PrimaryButton>
                 </form>
                 <div className="text-sm text-black">

@@ -9,7 +9,7 @@ export default function AppLogin() {
 
     const captureFormData = (e: any) => {
         e.preventDefault();
-        let url = 'http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/login';
+        let url = 'http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/usuario';
         var id = e.target.id.value;
         var psw = e.target.clave.value;
 

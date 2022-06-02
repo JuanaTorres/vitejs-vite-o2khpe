@@ -1,4 +1,5 @@
 
+import React, {useState, useEffect} from 'react';
 import Input from './Starling/Input';
 import PrimaryButton from './Starling/PrimaryButton';
 import RadioGroup from './Starling/RadioGroup';
@@ -68,8 +69,16 @@ export default function EmailTest() {
         console.log(state);
         //enviarEmail();
     };
-
-
+    const [lenguajes, setLenguajes] = useState([]);
+    const showData = async () => {
+        const response = await fetch('http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/usuario/lenguajes')
+        const data = await response.json()
+        console.log(data)
+        setLenguajes(data)
+    }
+    useEffect(() => {
+        showData()
+    }, [])
     return (
         <div>
             <NavCapitan/>
@@ -86,7 +95,7 @@ export default function EmailTest() {
                                    name={input.name} iconType={input.icon} addStyle="mb-2"
                             />
                         ))}
-                        <RadioGroup name="lenguaje" list={['C', 'C++', 'Java']}/>
+                        <RadioGroup name="lenguaje" list={lenguajes}/>
                         <PrimaryButton type="submit" className="mb-2">Registrar</PrimaryButton>
                     </form>
                 </div>
