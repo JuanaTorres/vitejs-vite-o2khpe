@@ -12,6 +12,7 @@ Form de agregar integrante y envio del correo de bienvenida
 */
 export default function EmailTest() {
     const cookies = new Cookies;
+    const idCapitan=cookies.get('user');
     console.log(cookies.get('user'));
     var state = {
         email: "",
@@ -23,7 +24,31 @@ export default function EmailTest() {
     };
 
     function enviarEmail() {
-        modificarMensaje("La Contraseña de equipo es: XXX");
+
+/*
+    var url= "http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos/"+idCapitan+"/equipo/integrantes";
+    var data={
+        "id": state.id,
+        "nombre": state.nombre,
+        "idLenguaje": state.lenguaje,
+        "email": state.email
+    }
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data), // data can be `string` or {object}!
+        headers: {
+            'Content-Type': 'application/json'
+        }'
+    })
+    .then((response) => response.text)
+    .then(response => modificarMensaje(response));
+*/
+
+    }
+
+    //ingresra el integrante y pasar al back, respuesta de creación de equipo e integrante
+    function modificarMensaje(m: any) {
+        state.mensaje ="Su contraseñan de equipo es: "+ m;
 
         emailjs.send("service_jnq30fj",
             "template_8v6pm8c", state, "1-3Z2otRwnMoyN3op")
@@ -32,11 +57,6 @@ export default function EmailTest() {
             }, (err) => {
                 console.log('FAILED...', err);
             });
-    }
-
-    //ingresra el integrante y pasar al back, respuesta de creación de equipo e integrante
-    function modificarMensaje(m: any) {
-        state.mensaje = m;
     }
 
     let loginData: any;
@@ -48,6 +68,7 @@ export default function EmailTest() {
         state.email = e.target.email.value;
         state.lenguaje = e.target.Lang.value;
         console.log(state);
+        //enviarEmail();
     };
 
 
@@ -70,12 +91,6 @@ export default function EmailTest() {
                         <RadioGroup name="lenguaje" list={['C', 'C++', 'Java']}/>
                         <PrimaryButton type="submit" className="mb-2">Registrar</PrimaryButton>
                     </form>
-                    <div className="text-sm text-black">
-                        {'¿Ya estás registrado? '}
-                        <a href="/login" className="text-blue-500 underline">
-                            ¡Inicia sesión!
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>

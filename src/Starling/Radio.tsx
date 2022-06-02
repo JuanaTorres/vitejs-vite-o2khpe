@@ -10,6 +10,7 @@ export default function Radio(props: any) {
         id={props.id}
         type="radio"
         name={props.name}
+        value={props.value}
         className="cursor-pointer rounded-full border-gray-300 text-lime-500 transition focus:ring-lime-400 disabled:cursor-not-allowed disabled:bg-lime-200 disabled:opacity-75"
       />
       <label

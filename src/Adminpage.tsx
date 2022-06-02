@@ -6,7 +6,7 @@ import DataTable1 from "react-data-table-component";
 @version 1
 Componente de React que contiene las tablas de admin
 */
-var checkedRows = [];
+var checkedRows: { id: any; }[]= [];
 
 function a(e: any) {
     console.log(e.target.checked);
@@ -39,32 +39,32 @@ export default function Admin() {
     const columns = [
         {
             name: '',
-            selector: row => <input type="checkbox" id={row.id} onClick={a}/>,
+            selector: (row: { id: string | undefined; }) => <input type="checkbox" id={row.id} onClick={a}/>,
             sortable: true,
         },
         {
             name: 'ID Equipo',
-            selector: row => row.id,
+            selector: (row: { id: string | undefined; }) => row.id,
             sortable: true,
         },
         {
             name: 'Capitán',
-            selector: row => row.nombreCapitan,
+            selector: (row: { nombreCapitan: string | undefined; }) => row.nombreCapitan,
             sortable: true,
         },
         {
             name: 'Integrantes',
-            selector: row => row.integrantes,
+            selector: (row: { integrantes: string | undefined; }) => row.integrantes,
             sortable: true,
         },
         {
             name: 'Fecha',
-            selector: row => row.fecha,
+            selector: (row: { fecha: any; }) => row.fecha,
             sortable: true,
         },
         {
             name: 'Clave',
-            selector: row => row.clave,
+            selector: (row: { clave: any; }) => row.clave,
             sortable: true,
         },
 
@@ -112,7 +112,7 @@ export default function Admin() {
                 <div className="bg-white p-50000 max-w-md">
                     <h2 style={{color: "black"}}>Tabla de equipos</h2>
                     <DataTable1 id="eventsTable" data={users} columns={columns} className="table"
-                                style={{color: "black"}} pagination="true" />
+                                style={{color: "black"}} pagination />
                     <button type="button" onClick={imprimirCSV} style={{color: "black"}}>Imprimir CSV
                     </button>
                     <br/>

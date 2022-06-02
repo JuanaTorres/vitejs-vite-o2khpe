@@ -9,13 +9,23 @@ Componente de React que contiene las tablas de admin
 */
 //data prueba
 var data = [
-    {id: 1, nombre: 'Gob', correo: 'Bo@unbosque.co', lenguaje: "Java"},
-    {id: 2, nombre: 'Gob', correo: 'Bo@unbosque.co', lenguaje: "Java"},
-    {id: 3, nombre: 'Gob', correo: 'Bo@unbosque.co', lenguaje: "Java"}
+    {id: 1, nombre: 'Gob', email: 'Bo@unbosque.co', lenguaje: "Java"},
+    {id: 2, nombre: 'Gob', email: 'Bo@unbosque.co', lenguaje: "Java"},
+    {id: 3, nombre: 'Gob', email: 'Bo@unbosque.co', lenguaje: "Java"}
 ];
 function Eliminarintegrante(event: any) {
+    var idIntegrante=event.target.value;
     console.log(`Seleccionaste ${event.target.value}`);
-    //rederigir back para eliminar imprime el id del integrante
+
+    /*
+    var url= "http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/"+idCapitan+"/equipo/integrantes/"+idIntegrante;
+
+    fetch(url, {
+        method: 'PUT',
+    })
+    .then((response) => response.text)
+    .then(response => console.log(response));
+*/
 }
 
 export default function Integrante() {
@@ -24,34 +34,39 @@ export default function Integrante() {
     const columns = [
         {
             name: 'Id',
-            selector: row => row.id,
+            selector: (row: { id: any; }) => row.id,
             sortable: true,
         },
         {
             name: 'Nombre',
-            selector: row => row.nombre,
+            selector: (row: { nombre: any; }) => row.nombre,
             sortable: true,
         },
         {
             name: 'Correo',
-            selector: row => row.correo,
+            selector: (row: { email: any; }) => row.email,
             sortable: true,
         },
         {
             name: 'Lenguaje',
-            selector: row => row.lenguaje,
+            selector: (row: { lenguaje: any; }) => row.lenguaje,
             sortable: true,
         },
         {
             name: 'Boton Eliminar',
-            selector: row => <button type="button" value={row.id} onClick={Eliminarintegrante}>Eliminar
+            selector: (row: { id: string | number | readonly string[] | undefined; }) => <button type="button" value={row.id} onClick={Eliminarintegrante}>Eliminar
             </button>,
             sortable: true,
         },
     ];
     /*
+    const cookies = new Cookies;
+    const idCapitan=cookies.get('user');
+    console.log(cookies.get('user'));
+    var url= "http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/"+idCapitan+"/equipo/integrantes";
+
     const showData = async () => {
-        const response = await fetch('http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos')
+        const response = await fetch(url)
         const data = await response.json()
         console.log(data)
         setUsers(data)
@@ -68,7 +83,7 @@ export default function Integrante() {
                 <div>
                     <h2 style={{color: "black"}}>Tabla de Integrantes</h2>
                     <DataTable1 id="eventsTable" data={data} columns={columns} className="table"
-                                style={{color: "black"}} pagination="true" />
+                                style={{color: "black"}} pagination />
                 </div>
             </div>
         </div>
