@@ -1,3 +1,7 @@
+/**
+ *
+ * @param props componentes del html
+ */
 export function StickSpinner(props: any) {
   let DEFAULT_COLOR: string = 'gray';
 

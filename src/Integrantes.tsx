@@ -2,10 +2,9 @@ import NavCapitan from "./Navbar"
 import React, {useState, useEffect} from 'react';
 import DataTable1 from "react-data-table-component";
 import * as $ from "jquery";
-/*
+/**
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
-Componente de React que contiene las tablas de admin
 */
 //data prueba
 var data = [
@@ -13,6 +12,11 @@ var data = [
     {id: 2, nombre: 'Gob', email: 'Bo@unbosque.co', lenguaje: "Java"},
     {id: 3, nombre: 'Gob', email: 'Bo@unbosque.co', lenguaje: "Java"}
 ];
+
+/**
+ * Funcion que elimina a los integrantes del equipo
+ * @param event evento del boton eliminar
+ */
 function Eliminarintegrante(event: any) {
     var idIntegrante=event.target.value;
     console.log(`Seleccionaste ${event.target.value}`);
@@ -28,6 +32,9 @@ function Eliminarintegrante(event: any) {
 */
 }
 
+/**
+ * Función con los componentes de tabla Integreantes
+ */
 export default function Integrante() {
 
     const [users, setUsers] = useState([]);

@@ -6,11 +6,13 @@ import AppRegister from './AppRegister';
 import EmailTest from './EmailTest';
 import Adminpage from './Adminpage';
 import Integrante from './Integrantes';
-/*
+/**
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
-Componente principal que redirecciona a las diferentes vistas, las cuales
 */
+/**
+ * Componente principal que redirecciona a las diferentes vistas, las cuales
+ */
 export default function App() {
   return (
     <BrowserRouter>

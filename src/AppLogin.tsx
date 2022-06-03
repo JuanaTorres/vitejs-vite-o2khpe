@@ -1,10 +1,12 @@
 import Input from './Starling/Input';
 import PrimaryButton from './Starling/PrimaryButton';
-/*
+/**
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
-Componente de React que contiene el formulario para el inicio de sesión de capitanes
 */
+/**
+ * Componente de React que contiene el formulario para el inicio de sesión de capitanes
+ */
 export default function AppLogin() {
 
     const captureFormData = (e: any) => {
@@ -27,7 +29,7 @@ export default function AppLogin() {
             headers: headers
         }).then((response) => {
             if (!response.ok) {
-                cathError(response.text());
+                cathError("Oh... usuario invalido");
                 window.location.reload();
             }
             return response.text();

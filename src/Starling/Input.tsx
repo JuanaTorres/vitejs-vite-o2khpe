@@ -2,9 +2,11 @@ import React from 'react';
 import FontAwesomeIcon from '../FontAwesomeIcon';
 /*
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
-@version 1
-Maneja y modifica los inputs 
-*/
+@version 1*/
+/**
+ * Funcion que maneja y modifica los inputs
+ * @param props componentes del html
+ */
 export default function ArtemisaInput(props: any) {
   let style: string = `text-black text-left w-full space-y-0.5 ${props.addStyle}`;
 

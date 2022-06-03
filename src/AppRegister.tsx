@@ -2,13 +2,14 @@ import emailjs from 'emailjs-com';
 import Input from './Starling/Input';
 import PrimaryButton from './Starling/PrimaryButton';
 import RadioGroup from './Starling/RadioGroup';
-import returnFormDataAsJson from './easyFormData'
 import {useEffect, useState} from "react";
-/*
+/**
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
-Componente de React que contiene el formulario para el registro de capitanes
 */
+/**
+ * Componente de React que contiene el formulario para el registro de capitanes
+ */
 export default function AppLogin() {
     var state = {
         email: "",
@@ -20,6 +21,9 @@ export default function AppLogin() {
         idLenguaje: ""
     };
 
+    /**
+     * Funcion que realiza el fech para crear el capitan y re dirije para enviar el correo
+     */
     function enviarEmail() {
 
         var url = "http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/capitanes";
@@ -48,11 +52,19 @@ export default function AppLogin() {
 
     }
 
+    /**
+     * Función que maneja el error del fetch
+     * @param error error de fetch
+     */
     function cathError(error: any) {
         alert(error);
         return;
     }
 
+    /**
+     * Se obtiene el mensaje del fetch y se envia al correo del capitan
+     * @param m
+     */
     function modificarMensaje(m: any) {
 
         if (m.includes("error") || m.includes("se encuentra")){
@@ -69,7 +81,7 @@ export default function AppLogin() {
                     cathError(response.text);
                     window.location.reload();
                 }
-                alert("Se a creado el integrante")
+                alert("Se a creado el capitan, revise el correo")
                 //console.log('SUCCESS!', response.status, response.text);
             }, (err) => {
                 cathError(err)

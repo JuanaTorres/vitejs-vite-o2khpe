@@ -3,8 +3,11 @@ import Radio from './Radio';
 /*
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
-Maneja y modifica los inputs 
 */
+/**
+ * Genera un grupo de radios en html
+ * @param props componentes del html
+ */
 export default function RadioGroup(props: any) {
   return (
     <div className="grid grid-cols-2 justify-items-start mb-2">

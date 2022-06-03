@@ -1,8 +1,11 @@
-/*
+/**
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
-Maneja los iconos
 */
+/**
+ *Maneja los iconos de los inputs
+ * @param props componentes del html
+ */
 export default function FontAwesomeIcon(props: any) {
   if (props.iconType === 'lock') {
     return (

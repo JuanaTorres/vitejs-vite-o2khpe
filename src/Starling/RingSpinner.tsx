@@ -1,3 +1,8 @@
+/**
+ * Componente para animar los botones
+ * @param props componentes del html
+ * @constructor
+ */
 export default function RingSpinner(props: any) {
   let DEFAULT_COLOR: string = 'gray';
 

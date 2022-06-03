@@ -1,8 +1,10 @@
 /*
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
-@version 1
-Componente de React que maneja el contenido y estilo de los checkbox de los formularios
-*/
+@version 1*/
+/**
+ * Componente de React que maneja el contenido y estilo de los checkbox de los formularios
+ * @param props componentes del html
+ */
 export default function Checkbox(props: any) {
   return (
     <div className="inline-flex items-center space-x-1.5">

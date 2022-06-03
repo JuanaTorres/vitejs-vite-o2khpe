@@ -1,8 +1,13 @@
 /*
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
-@version 1
-Componente de React que maneja el contenido y estilo de los checkbox de los formularios
+@version 1*/
+/*
+
 */
+/**
+ * Componente de React que maneja el contenido y estilo de los radios de los formularios
+ * @param props componentes del html
+ */
 export default function Radio(props: any) {
     var lb=props.id+"lb";
     return (

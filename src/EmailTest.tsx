@@ -5,11 +5,13 @@ import PrimaryButton from './Starling/PrimaryButton';
 import RadioGroup from './Starling/RadioGroup';
 import NavCapitan from "./Navbar"
 import emailjs from 'emailjs-com';
-/*
+/**
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
-Form de agregar integrante y envio del correo de bienvenida
 */
+/**
+ * Form de agregar integrante y envio del correo de bienvenida
+ */
 export default function EmailTest() {
     var idCapitan=window.localStorage.getItem("users");
     var state = {
@@ -21,6 +23,9 @@ export default function EmailTest() {
         lenguaje: ""
     };
 
+    /**
+     * Función que realiza el fech y crea en el backend el integrante para redirigir al envio del correo
+     */
     function enviarEmail() {
 
 /*
@@ -44,7 +49,11 @@ export default function EmailTest() {
 
     }
 
-    //ingresra el integrante y pasar al back, respuesta de creación de equipo e integrante
+
+    /**
+     * Función que modifica el mensaje y envia ese mensaje al correo del integrante
+     * @param m mensaje de retorno del fech
+     */
     function modificarMensaje(m: any) {
         state.mensaje ="Su contraseñan de equipo es: "+ m;
 

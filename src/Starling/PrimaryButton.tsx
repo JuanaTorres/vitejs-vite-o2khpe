@@ -4,8 +4,12 @@ import RingSpinner from './RingSpinner';
 /*
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
-Componente de React que maneja el contenido de los botones coloridos
 */
+
+/**
+ * Componente de React que maneja el contenido de los botones coloridos
+ * @param props componentes del html
+ */
 export default function PrimaryButton(props: any) {
   let style: string = `
   @apply

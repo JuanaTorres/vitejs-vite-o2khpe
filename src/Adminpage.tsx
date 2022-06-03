@@ -1,14 +1,17 @@
 
 import React, {useState, useEffect} from 'react';
 import DataTable1 from "react-data-table-component";
-/*
+/**
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
-Componente de React que contiene las tablas de admin
 */
 var checkedRows: { id: any; }[]= [];
 
-function a(e: any) {
+/**
+ * Función que guarda los equipos seleccionados a eliminar en checkedRows
+ * @param e evento del checkbox
+ */
+function selecionarEquipos(e: any) {
     console.log(e.target.checked);
     if (e.target.checked) {
         checkedRows.push({id: e.target.id});
@@ -22,24 +25,34 @@ function a(e: any) {
     console.log(checkedRows);
 };
 
-
+/**
+ * Función para eliminar equipos
+ * @param event evento del boton eliminar
+ */
 function EliminarEquipo(event:any) {
     console.log( );
     //rederigir back para eliminar
 }
 
+/**
+ * Funcion que imprime el archivo CSV
+ * @param event
+ */
 function imprimirCSV(event: any) {
     console.log(`Seleccionaste ${event.target.value}`);
     //rederigir para imprimir CSV de los equipos
 }
 
+/**
+ * Función que retorna el html y componentes de las tablas Admin
+ */
 export default function Admin() {
 
     const [users, setUsers] = useState([]);
     const columns = [
         {
             name: '',
-            selector: (row: { id: string | undefined; }) => <input type="checkbox" id={row.id} onClick={a}/>,
+            selector: (row: { id: string | undefined; }) => <input type="checkbox" id={row.id} onClick={selecionarEquipos}/>,
             sortable: true,
         },
         {
@@ -85,7 +98,6 @@ export default function Admin() {
     function handleClick() {
         state.clicked = !state.clicked;
     };
-
 
     return (
         <div>

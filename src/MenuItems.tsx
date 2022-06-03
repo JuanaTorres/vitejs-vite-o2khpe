@@ -1,8 +1,10 @@
-/*
+/**
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
-Constante con los nav de capitan
 */
+/**
+ * Constante con los datos del nav
+ */
 export const MenuItems= [
   {
     title:"Home",

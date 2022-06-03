@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 import {MenuItems} from "./MenuItems"
 import './Navbar.css'
-/*
+/**
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
-Navegación del capitan
+
 */
+/**
+ * Navegación del capitan
+ * @param props componentes del html
+ */
 export default function Navbar(props:any) {
   let state ={
     clicked:false

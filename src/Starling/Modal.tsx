@@ -1,11 +1,13 @@
 import React from 'react';
 
-import PrimaryButton from './Starling/PrimaryButton';
 /*
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
-...
 */
+/**
+ *
+ * @param props componentes del html
+ */
 export default function StarlingModal(props: any) {
   return (
     //https://github.com/facebook/prop-types

@@ -1,11 +1,13 @@
 import React from 'react';
 
 import RingSpinner from './RingSpinner';
-/*
+/**
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
-@version 1
-Componente de React que maneja el contenido de los botones básicos (Sin color de fondo)
-*/
+@version 1*/
+/**
+ * Componente de React que maneja el contenido de los botones básicos (Sin color de fondo)
+ * @param props componente llamado desde el html
+ */
 export default function BasicButton(props: any) {
   let DEFAULT_COLORS: string[] = ['white', 'gray'];
 
