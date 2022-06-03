@@ -47,7 +47,7 @@ export default function AppLogin() {
         function redirect(response: any) {
             if (response === "CAPITAN" || response === "ADMIN") {
                 window.localStorage.setItem('user', btoa(id));
-                window.localStorage.setItem('psw', psw);
+                window.localStorage.setItem('psw', btoa(psw));
                 if (response === "CAPITAN")
                     window.location.href = "./capitan"
                 else
