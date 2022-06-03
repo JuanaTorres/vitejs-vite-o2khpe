@@ -109,7 +109,15 @@ export default function Admin() {
 
     ];
     const showData = async () => {
-        const response = await fetch('http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos')
+        var username = atob(window.localStorage.getItem("user"));
+        var password = atob(window.localStorage.getItem("psw"));
+        let headers = new Headers();
+
+        headers.append('Content-Type', 'text/json');
+        headers.append('Authorization', "Basic " + btoa(username + ":" + password));
+
+        const response = await
+            fetch('http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos', {headers: headers});
         const data = await response.json()
         console.log(data)
         setUsers(data)
