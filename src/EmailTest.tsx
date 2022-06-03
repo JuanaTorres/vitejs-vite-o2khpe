@@ -90,7 +90,9 @@ export default function EmailTest() {
         showData()
     }, [])
 
-
+    /**
+     * Funcion que valida el rol del usuario en cookies
+     */
     function validarUsuario() {
         var username = atob(window.localStorage.getItem("user"));
         var password = atob(window.localStorage.getItem("psw"));
@@ -106,11 +108,10 @@ export default function EmailTest() {
         then((response) => validarRol(response.toString()))
     }
 
-    function cathError(error: any) {
-        alert(error);
-        window.location.href = "./login";
-    }
-
+    /**
+     * Funcion que valida el rol del usuario con la pagina
+     * @param rol response del fetch
+     */
     function validarRol(rol: any) {
         if (rol !== "CAPITAN") {
             alert("Este usuario no tiene permisos de capitán!")

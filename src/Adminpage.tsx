@@ -1,11 +1,11 @@
-
 import React, {useState, useEffect} from 'react';
 import DataTable1 from "react-data-table-component";
+
 /**
-@autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
-@version 1
-*/
-var checkedRows: { id: any; }[]= [];
+ @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
+ @version 1
+ */
+var checkedRows: { id: any; }[] = [];
 
 /**
  * Función que guarda los equipos seleccionados a eliminar en checkedRows
@@ -29,9 +29,34 @@ function selecionarEquipos(e: any) {
  * Función para eliminar equipos
  * @param event evento del boton eliminar
  */
-function EliminarEquipo(event:any) {
-    console.log( );
-    //rederigir back para eliminar
+function EliminarEquipo(event: any) {
+
+    fetch("http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos", {
+        method: 'PUT',
+        body: JSON.stringify(checkedRows), // checkedRows can be `string` or {object}!
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then((response) => {
+            if (!response.ok) {
+                cathError(response.text());
+                window.location.reload();
+            }
+            return response.text()
+        })
+        .then(response => console.log(response.toString()))
+        .catch(error => cathError(error));
+
+}
+
+/**
+ * Función que maneja el error del fetch
+ * @param error error de fetch
+ */
+function cathError(error: any) {
+    alert(error);
+    return;
 }
 
 /**
@@ -52,7 +77,8 @@ export default function Admin() {
     const columns = [
         {
             name: '',
-            selector: (row: { id: string | undefined; }) => <input type="checkbox" id={row.id} onClick={selecionarEquipos}/>,
+            selector: (row: { id: string | undefined; }) => <input type="checkbox" id={row.id}
+                                                                   onClick={selecionarEquipos}/>,
             sortable: true,
         },
         {
@@ -72,7 +98,7 @@ export default function Admin() {
         },
         {
             name: 'Fecha',
-            selector: (row: { fecha: any; }) => row.fecha,
+            selector: (row: { fecha: any; }) => new Date(row.fecha).toUTCString(),
             sortable: true,
         },
         {
@@ -124,7 +150,7 @@ export default function Admin() {
                 <div className="bg-white p-50000 max-w-md">
                     <h2 style={{color: "black"}}>Tabla de equipos</h2>
                     <DataTable1 id="eventsTable" data={users} columns={columns} className="table"
-                                style={{color: "black"}} pagination />
+                                style={{color: "black"}} pagination/>
                     <button type="button" onClick={imprimirCSV} style={{color: "black"}}>Imprimir CSV
                     </button>
                     <br/>
