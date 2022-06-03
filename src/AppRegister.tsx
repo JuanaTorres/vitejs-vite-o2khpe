@@ -36,7 +36,7 @@ export default function AppLogin() {
                   'Content-Type': 'application/json'
               }
           })
-          .then((response) => response.text)
+          .then((response) => response.text())
           .then(response => modificarMensaje(response.toString()));
 
 
@@ -64,9 +64,10 @@ export default function AppLogin() {
         state.nombre = e.target.name.value;
         state.email = e.target.email.value;
         state.idLenguaje = e.target.radio1.value;
-        state.lenguaje=e.target.radio1.content;
-        console.log(e.target.radio1);
-       // enviarEmail();
+        // @ts-ignore
+        state.lenguaje=document.getElementById(state.idLenguaje+"lb").textContent;
+        console.log(state);
+        enviarEmail();
     };
     const [lenguajes, setLenguajes] = useState([]);
     const showData = async () => {
