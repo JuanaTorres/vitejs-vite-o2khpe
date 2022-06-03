@@ -14,40 +14,56 @@ import emailjs from 'emailjs-com';
 export default function EmailTest() {
     window.onload = validarUsuario;
 
-    var idCapitan = window.localStorage.getItem("users");
+
     var state = {
         email: "",
-        asunto: "Bienvenido al Maratón",
+        asunto: "Bienvenido Capitan al Maratón",
         mensaje: "",
         id: "",
         nombre: "",
-        lenguaje: ""
+        lenguaje: "",
+        idLenguaje: ""
     };
 
     /**
      * Función que realiza el fech y crea en el backend el integrante para redirigir al envio del correo
      */
     function enviarEmail() {
-
-        /*
-            var url= "http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos/"+idCapitan+"/equipo/integrantes";
-            var data={
-                "id": state.id,
-                "nombre": state.nombre,
-                "idLenguaje": state.lenguaje,
-                "email": state.email
+        // @ts-ignore
+        var idCapitan=atob(window.localStorage.getItem("user"));
+        var url = "http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/" + idCapitan + "/equipo/integrantes";
+        var data = {
+            "id": state.id,
+            "nombre": state.nombre,
+            "idLenguaje": state.idLenguaje,
+            "email": state.email
+        }
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data), // data can be `string` or {object}!
+            headers: {
+                'Content-Type': 'application/json'
             }
-            fetch(url, {
-                method: 'POST',
-                body: JSON.stringify(data), // data can be `string` or {object}!
-                headers: {
-                    'Content-Type': 'application/json'
-                }'
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    cathError(response.text());
+                    window.location.reload();
+                }
+                return response.text()
             })
-            .then((response) => response.text)
-            .then(response => modificarMensaje(response));
-        */
+            .then(response => modificarMensaje(response.toString()))
+            .catch(error => cathError(error));
 
+    }
+
+    /**
+     * Función que maneja el error del fetch
+     * @param error error de fetch
+     */
+    function cathError(error: any) {
+        alert(error);
+        return;
     }
 
 
@@ -56,16 +72,26 @@ export default function EmailTest() {
      * @param m mensaje de retorno del fech
      */
     function modificarMensaje(m: any) {
+
+        if (m.includes("error") || m.includes("se encuentra")) {
+            alert(m);
+            return;
+        }
+
         state.mensaje = "Su contraseñan de equipo es: " + m;
 
         emailjs.send("service_jnq30fj",
             "template_8v6pm8c", state, "1-3Z2otRwnMoyN3op")
             .then((response) => {
-                alert("Se a creado el integrante")
-                console.log('SUCCESS!', response.status, response.text);
+                if (response.status !== 200) {
+                    cathError(response.text);
+                    window.location.reload();
+                }
+                alert("Se a creado el capitan, revise el correo")
+                //console.log('SUCCESS!', response.status, response.text);
             }, (err) => {
-                alert("Ocurrio un error al enviar el correo, contactate con un asesor")
-                console.log('FAILED...', err);
+                cathError(err)
+                window.location.reload();
             });
     }
 
@@ -75,9 +101,11 @@ export default function EmailTest() {
         state.id = e.target.id.value;
         state.nombre = e.target.name.value;
         state.email = e.target.email.value;
-        state.lenguaje = e.target.Lang.value;
+        state.idLenguaje = e.target.radio1.value;
+        // @ts-ignore
+        state.lenguaje = document.getElementById(state.idLenguaje + "lb").textContent;
         console.log(state);
-        //enviarEmail();
+        enviarEmail();
     };
     const [lenguajes, setLenguajes] = useState([]);
     const showData = async () => {
@@ -94,18 +122,18 @@ export default function EmailTest() {
      * Funcion que valida el rol del usuario en cookies
      */
     function validarUsuario() {
+        // @ts-ignore
         var username = atob(window.localStorage.getItem("user"));
+        // @ts-ignore
         var password = atob(window.localStorage.getItem("psw"));
         let headers = new Headers();
-
         headers.append('Content-Type', 'text/json');
         headers.append('Authorization', "Basic " + btoa(username + ":" + password));
         var url = "http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/usuario";
         fetch(url, {
             method: 'GET',
             headers: headers,
-        }).then((response) => response.text()).
-        then((response) => validarRol(response.toString()))
+        }).then((response) => response.text()).then((response) => validarRol(response.toString()))
     }
 
     /**
