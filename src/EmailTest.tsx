@@ -1,4 +1,3 @@
-
 import React, {useState, useEffect} from 'react';
 import Input from './Starling/Input';
 import PrimaryButton from './Starling/PrimaryButton';
@@ -6,14 +5,16 @@ import RadioGroup from './Starling/RadioGroup';
 import NavCapitan from "./Navbar"
 import emailjs from 'emailjs-com';
 /**
-@autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
-@version 1
-*/
+ @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
+ @version 1
+ */
 /**
  * Form de agregar integrante y envio del correo de bienvenida
  */
 export default function EmailTest() {
-    var idCapitan=window.localStorage.getItem("users");
+    window.onload = validarUsuario;
+
+    var idCapitan = window.localStorage.getItem("users");
     var state = {
         email: "",
         asunto: "Bienvenido al Maratón",
@@ -28,24 +29,24 @@ export default function EmailTest() {
      */
     function enviarEmail() {
 
-/*
-    var url= "http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos/"+idCapitan+"/equipo/integrantes";
-    var data={
-        "id": state.id,
-        "nombre": state.nombre,
-        "idLenguaje": state.lenguaje,
-        "email": state.email
-    }
-    fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data), // data can be `string` or {object}!
-        headers: {
-            'Content-Type': 'application/json'
-        }'
-    })
-    .then((response) => response.text)
-    .then(response => modificarMensaje(response));
-*/
+        /*
+            var url= "http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos/"+idCapitan+"/equipo/integrantes";
+            var data={
+                "id": state.id,
+                "nombre": state.nombre,
+                "idLenguaje": state.lenguaje,
+                "email": state.email
+            }
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(data), // data can be `string` or {object}!
+                headers: {
+                    'Content-Type': 'application/json'
+                }'
+            })
+            .then((response) => response.text)
+            .then(response => modificarMensaje(response));
+        */
 
     }
 
@@ -55,7 +56,7 @@ export default function EmailTest() {
      * @param m mensaje de retorno del fech
      */
     function modificarMensaje(m: any) {
-        state.mensaje ="Su contraseñan de equipo es: "+ m;
+        state.mensaje = "Su contraseñan de equipo es: " + m;
 
         emailjs.send("service_jnq30fj",
             "template_8v6pm8c", state, "1-3Z2otRwnMoyN3op")
@@ -88,6 +89,35 @@ export default function EmailTest() {
     useEffect(() => {
         showData()
     }, [])
+
+
+    function validarUsuario() {
+        var username = atob(window.localStorage.getItem("user"));
+        var password = atob(window.localStorage.getItem("psw"));
+        let headers = new Headers();
+
+        headers.append('Content-Type', 'text/json');
+        headers.append('Authorization', "Basic " + btoa(username + ":" + password));
+        var url = "http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/usuario";
+        fetch(url, {
+            method: 'GET',
+            headers: headers,
+        }).then((response) => response.text()).
+        then((response) => validarRol(response.toString()))
+    }
+
+    function cathError(error: any) {
+        alert(error);
+        window.location.href = "./login";
+    }
+
+    function validarRol(rol: any) {
+        if (rol !== "CAPITAN") {
+            alert("Este usuario no tiene permisos de capitán!")
+            window.location.href = "./login"
+        }
+    }
+
     return (
         <div>
             <NavCapitan/>
