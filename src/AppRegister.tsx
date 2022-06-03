@@ -22,7 +22,7 @@ export default function AppLogin() {
     };
 
     /**
-     * Funcion que realiza el fech para crear el capitan y re dirije para enviar el correo
+     * Funcion que realiza el fech para crear el capitan y redirije para enviar el correo
      */
     function enviarEmail() {
 

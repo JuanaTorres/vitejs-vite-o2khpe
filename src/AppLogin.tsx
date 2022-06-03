@@ -1,9 +1,9 @@
 import Input from './Starling/Input';
 import PrimaryButton from './Starling/PrimaryButton';
 /**
-@autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
-@version 1
-*/
+ @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
+ @version 1
+ */
 /**
  * Componente de React que contiene el formulario para el inicio de sesión de capitanes
  */
@@ -28,6 +28,7 @@ export default function AppLogin() {
             method: 'GET',
             headers: headers
         }).then((response) => {
+            console.log(response);
             if (!response.ok) {
                 cathError("Oh... usuario invalido");
                 window.location.reload();
@@ -37,6 +38,10 @@ export default function AppLogin() {
             .then((response) => redirect(response.toString()))
             .catch(error => cathError(error));
 
+        /**
+         * Función que maneja el error del fetch
+         * @param error error de fetch
+         */
         function cathError(error: any) {
             e.target.id.value = "";
             e.target.clave.value = "";
@@ -44,6 +49,10 @@ export default function AppLogin() {
             return;
         }
 
+        /**
+         * Redirreciona a el usuario  su correspondiente pagina
+         * @param response rol del usuario
+         */
         function redirect(response: any) {
             if (response === "CAPITAN" || response === "ADMIN") {
                 window.localStorage.setItem('user', btoa(id));
@@ -52,6 +61,12 @@ export default function AppLogin() {
                     window.location.href = "./capitan"
                 else
                     window.location.href = "./admin"
+            } else if (response === "INTEGRANTE") {
+                alert("El integrante no tiene acceso a la pagina");
+                window.location.reload();
+            } else {
+                alert(response);
+                window.location.reload();
             }
         }
     };

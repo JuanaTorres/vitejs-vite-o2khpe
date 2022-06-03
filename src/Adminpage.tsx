@@ -45,9 +45,21 @@ function EliminarEquipo(event: any) {
             }
             return response.text()
         })
-        .then(response => console.log(response.toString()))
+        .then(response => confirmarEliminacion(response.toString()))
         .catch(error => cathError(error));
 
+}
+
+/**
+ * Funcion que verifica que todos los equipos fueron eliminados
+ * @param m response del fetch
+ */
+function confirmarEliminacion(m: any) {
+    if (m.includes("error") || m.includes("no han podido")) {
+        alert(m);
+        return;
+    }
+    window.location.reload();
 }
 
 /**
@@ -69,10 +81,39 @@ function imprimirCSV(event: any) {
 }
 
 /**
+ * Funcion que valida el rol del usuario en cookies
+ */
+function validarUsuario() {
+    // @ts-ignore
+    var username = atob(window.localStorage.getItem("user"));
+    // @ts-ignore
+    var password = atob(window.localStorage.getItem("psw"));
+    let headers = new Headers();
+    headers.append('Content-Type', 'text/json');
+    headers.append('Authorization', "Basic " + btoa(username + ":" + password));
+    var url = "http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/usuario";
+    fetch(url, {
+        method: 'GET',
+        headers: headers,
+    }).then((response) => response.text()).then((response) => validarRol(response.toString()))
+}
+
+/**
+ * Funcion que valida el rol del usuario con la pagina
+ * @param rol response del fetch
+ */
+function validarRol(rol: any) {
+    if (rol !== "ADMIN") {
+        alert("Este usuario no tiene permisos de administrador!")
+        window.location.href = "./login"
+    }
+}
+
+/**
  * Función que retorna el html y componentes de las tablas Admin
  */
 export default function Admin() {
-
+    window.onload = validarUsuario;
     const [users, setUsers] = useState([]);
     const columns = [
         {
@@ -109,7 +150,9 @@ export default function Admin() {
 
     ];
     const showData = async () => {
+        // @ts-ignore
         var username = atob(window.localStorage.getItem("user"));
+        // @ts-ignore
         var password = atob(window.localStorage.getItem("psw"));
         let headers = new Headers();
 

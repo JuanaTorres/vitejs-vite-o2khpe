@@ -17,7 +17,7 @@ export default function EmailTest() {
 
     var state = {
         email: "",
-        asunto: "Bienvenido Capitan al Maratón",
+        asunto: "Bienvenido Integrante al Maratón",
         mensaje: "",
         id: "",
         nombre: "",
@@ -78,7 +78,7 @@ export default function EmailTest() {
             return;
         }
 
-        state.mensaje = "Su contraseñan de equipo es: " + m;
+        state.mensaje = "Su contraseñan de equipo es: " + atob(m);
 
         emailjs.send("service_jnq30fj",
             "template_8v6pm8c", state, "1-3Z2otRwnMoyN3op")
@@ -87,7 +87,7 @@ export default function EmailTest() {
                     cathError(response.text);
                     window.location.reload();
                 }
-                alert("Se a creado el capitan, revise el correo")
+                alert("Se a creado el integrante, revise el correo")
                 //console.log('SUCCESS!', response.status, response.text);
             }, (err) => {
                 cathError(err)
