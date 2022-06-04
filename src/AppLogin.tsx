@@ -15,10 +15,6 @@ export default function AppLogin() {
         var id = e.target.id.value;
         var psw = e.target.clave.value;
 
-        if (id === "" || psw == "") {
-            alert("Es necesario llenar los campos");
-            return;
-        }
         psw = btoa(psw);
         let headers = new Headers();
         headers.append('Content-Type', 'text/json');
@@ -28,15 +24,13 @@ export default function AppLogin() {
             method: 'GET',
             headers: headers
         }).then((response) => {
-            console.log(response);
             if (!response.ok) {
                 cathError("Oh... usuario invalido");
                 window.location.reload();
             }
             return response.text();
         })
-            .then((response) => redirect(response.toString()))
-            .catch(error => cathError(error));
+            .then((response) => redirect(response.toString()));
 
         /**
          * Función que maneja el error del fetch
@@ -63,9 +57,6 @@ export default function AppLogin() {
                     window.location.href = "./admin"
             } else if (response === "INTEGRANTE") {
                 alert("El integrante no tiene acceso a la pagina");
-                window.location.reload();
-            } else {
-                alert(response);
                 window.location.reload();
             }
         }

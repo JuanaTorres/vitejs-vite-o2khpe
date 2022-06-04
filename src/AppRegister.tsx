@@ -81,7 +81,8 @@ export default function AppLogin() {
                     cathError(response.text);
                     window.location.reload();
                 }
-                alert("Se a creado el capitan, revise el correo")
+                alert("Se a creado el capitan, revise el correo");
+                window.location.href = "./";
                 //console.log('SUCCESS!', response.status, response.text);
             }, (err) => {
                 cathError(err)

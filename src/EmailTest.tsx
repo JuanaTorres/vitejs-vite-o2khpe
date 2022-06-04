@@ -30,7 +30,8 @@ export default function EmailTest() {
      */
     function enviarEmail() {
         // @ts-ignore
-        var idCapitan=atob(window.localStorage.getItem("user"));
+        var idCapitan = atob(window.localStorage.getItem("user"));
+
         var url = "http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/" + idCapitan + "/equipo/integrantes";
         var data = {
             "id": state.id,
@@ -52,9 +53,7 @@ export default function EmailTest() {
                 }
                 return response.text()
             })
-            .then(response => modificarMensaje(response.toString()))
-            .catch(error => cathError(error));
-
+            .then(response => modificarMensaje(response.toString()));
     }
 
     /**
@@ -77,7 +76,6 @@ export default function EmailTest() {
             alert(m);
             return;
         }
-
         state.mensaje = "Su contraseñan de equipo es: " + atob(m);
 
         emailjs.send("service_jnq30fj",
@@ -87,7 +85,8 @@ export default function EmailTest() {
                     cathError(response.text);
                     window.location.reload();
                 }
-                alert("Se a creado el integrante, revise el correo")
+                alert("Se a creado el integrante, revise el correo");
+                window.location.href = "./integrante";
                 //console.log('SUCCESS!', response.status, response.text);
             }, (err) => {
                 cathError(err)
@@ -104,14 +103,12 @@ export default function EmailTest() {
         state.idLenguaje = e.target.radio1.value;
         // @ts-ignore
         state.lenguaje = document.getElementById(state.idLenguaje + "lb").textContent;
-        console.log(state);
         enviarEmail();
     };
     const [lenguajes, setLenguajes] = useState([]);
     const showData = async () => {
         const response = await fetch('http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/usuario/lenguajes')
         const data = await response.json()
-        console.log(data)
         setLenguajes(data)
     }
     useEffect(() => {

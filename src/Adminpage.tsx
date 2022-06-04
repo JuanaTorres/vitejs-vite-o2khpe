@@ -138,11 +138,6 @@ export default function Admin() {
             sortable: true,
         },
         {
-            name: 'Fecha',
-            selector: (row: { fecha: any; }) => new Date(row.fecha).toUTCString(),
-            sortable: true,
-        },
-        {
             name: 'Clave',
             selector: (row: { clave: any; }) => row.clave,
             sortable: true,
