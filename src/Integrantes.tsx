@@ -137,11 +137,10 @@ export default function Integrante() {
     return (
         <div>
             <Navbar/>
-            <h1 style={{fontFamily: "initial"}}>Eliminar integrante
+            <h1 className="text-xl">Eliminar integrante
             </h1>
             <div>
                 <div>
-                    <h2 style={{color: "black"}}>Tabla de Integrantes</h2>
                     <DataTable1 id="eventsTable" data={users} columns={columns} className="table"
                                 style={{color: "black"}} pagination/>
                 </div>

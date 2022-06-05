@@ -2,7 +2,6 @@ import emailjs from 'emailjs-com';
 import Input from './Starling/Input';
 import PrimaryButton from './Starling/PrimaryButton';
 import RadioGroup from './Starling/RadioGroup';
-import Navbar from './Starling/Nav.tsx'
 import {useEffect, useState} from "react";
 /**
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
@@ -114,7 +113,6 @@ export default function AppLogin() {
     }, [])
     return (
         <div className="flex flex-col w-full h-screen">
-            <Navbar/>
         <div className="flex flex-row items-center justify-center w-full h-full bg-transparent">
             <div className="px-5 py-5 bg-white rounded-md space-y-5">
                 <form className="space-y-5" onSubmit={captureFormData}>

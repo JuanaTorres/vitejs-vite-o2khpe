@@ -74,6 +74,7 @@ export default function EmailTest() {
 
         if (m.includes("error") || m.includes("se encuentra")) {
             alert(m);
+            window.location.reload();
             return;
         }
         state.mensaje = "Su contraseñan de equipo es: " + atob(m);
@@ -147,8 +148,10 @@ export default function EmailTest() {
     return (
         <div>
             <Navbar></Navbar>
-            <div className="p-3">
-                <div className="bg-white p-5 max-w-md">
+            <h1 className="text-xl">Agregar un nuevo integrante
+            </h1>
+            <div className="flex flex-row items-center justify-center w-full h-full bg-transparent">
+                <div className="px-5 py-5 bg-white rounded-md space-y-5">
                     <form onSubmit={captureFormData}>
                         {[
                             {pl: 'Número de Documento', name: 'id', type: 'text', icon: 'card'},
@@ -163,6 +166,7 @@ export default function EmailTest() {
                         <RadioGroup name="lenguaje" list={lenguajes}/>
                         <PrimaryButton type="submit" className="mb-2">Registrar</PrimaryButton>
                     </form>
+
                 </div>
             </div>
         </div>

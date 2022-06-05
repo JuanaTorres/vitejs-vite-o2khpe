@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import DataTable1 from "react-data-table-component";
-import PrimaryButton from "./Starling/PrimaryButton";
-import Navbar from "./Starling/Nav";
+import Navbar from "./Starling/NavAdmin";
+import CSV from "./getCSV";
 
 /**
  @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
@@ -78,21 +78,18 @@ function cathError(error: any) {
  * @param event
  */
 function imprimirCSV(event: any) {
-   fetch("http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos", {
-        method: 'PUT',
-        body: JSON.stringify(checkedRows), // checkedRows can be `string` or {object}!
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then((response) => {
-            if (!response.ok) {
-                cathError(response.text());
-                window.location.reload();
-            }
-            return response.text()
-        })
-        .then(response => confirmarEliminacion(response.toString()))
+    // @ts-ignore
+    var username = atob(window.localStorage.getItem("user"));
+    // @ts-ignore
+    var password = atob(window.localStorage.getItem("psw"));
+    let headers = new Headers();
+    headers.append('Content-Type', 'text/json');
+    headers.append('Authorization', "Basic " + btoa(username + ":" + password));
+    fetch("http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/csv", {
+        method: 'GET',
+        headers: headers
+    }).then((response) => response.json())
+        .then(response => CSV(response))
         .catch(error => cathError(error));
 }
 
@@ -112,7 +109,7 @@ function validarUsuario() {
         method: 'GET',
         headers: headers,
     }).then((response) => response.text()).then((response) => validarRol(response.toString()))
-       console.log("EUOUA")
+    console.log("EUOUA")
 }
 
 /**
@@ -207,7 +204,7 @@ export default function Admin() {
   border border-yellow-700 hover:border-yellow-800 rounded focus:border-yellow-800
   text-sm font-medium text-white
   focus:outline-none focus:ring-2 focus:ring-yellow-300;
-  transition" type="button" onClick={imprimirCSV} >Imprimir CSV
+  transition" type="button" onClick={imprimirCSV}>Imprimir CSV
                     </button>
                     <br/>
                     <button className="cursor-pointer
