@@ -86,7 +86,7 @@ export default function EmailTest() {
                     cathError(response.text);
                     window.location.reload();
                 }
-                alert("Se a creado el integrante, revise el correo");
+                alert("Se ha creado el integrante, revise el correo");
                 window.location.href = "./integrante";
                 //console.log('SUCCESS!', response.status, response.text);
             }, (err) => {
