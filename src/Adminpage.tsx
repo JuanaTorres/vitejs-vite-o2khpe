@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import DataTable1 from "react-data-table-component";
+import PrimaryButton from "./Starling/PrimaryButton";
 
 /**
  @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
@@ -76,8 +77,22 @@ function cathError(error: any) {
  * @param event
  */
 function imprimirCSV(event: any) {
-    console.log(`Seleccionaste ${event.target.value}`);
-    //rederigir para imprimir CSV de los equipos
+   /* fetch("http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos", {
+        method: 'PUT',
+        body: JSON.stringify(checkedRows), // checkedRows can be `string` or {object}!
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then((response) => {
+            if (!response.ok) {
+                cathError(response.text());
+                window.location.reload();
+            }
+            return response.text()
+        })
+        .then(response => confirmarEliminacion(response.toString()))
+        .catch(error => cathError(error));*/
 }
 
 /**

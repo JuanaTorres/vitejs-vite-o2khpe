@@ -1,6 +1,6 @@
 import Input from './Starling/Input';
 import PrimaryButton from './Starling/PrimaryButton';
-import Navbar from './Starling/Nav.tsx'
+
 /**
  @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
  @version 1
@@ -66,7 +66,6 @@ export default function AppLogin() {
 
     return (
         <div className="flex flex-row justify-center w-full h-full bg-transparent">
-            <Navbar/>
             <div className="max-w-md p-5 bg-white h-52">
                 <form onSubmit={captureFormData}>
                     {[

@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react';
 import Input from './Starling/Input';
 import PrimaryButton from './Starling/PrimaryButton';
 import RadioGroup from './Starling/RadioGroup';
-import NavCapitan from "./Navbar"
 import emailjs from 'emailjs-com';
+import Navbar from "./Starling/Nav";
 /**
  @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
  @version 1
@@ -146,7 +146,7 @@ export default function EmailTest() {
 
     return (
         <div>
-            <NavCapitan/>
+            <Navbar></Navbar>
             <div className="p-3">
                 <div className="bg-white p-5 max-w-md">
                     <form onSubmit={captureFormData}>
