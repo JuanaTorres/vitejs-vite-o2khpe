@@ -1,6 +1,7 @@
 import NavCapitan from "./Navbar"
 import React, {useState, useEffect} from 'react';
 import DataTable1 from "react-data-table-component";
+import Navbar from './Starling/Nav.tsx'
 import * as $ from "jquery";
 
 /**
@@ -135,7 +136,7 @@ export default function Integrante() {
 
     return (
         <div>
-            <NavCapitan/>
+            <Navbar/>
             <h1 style={{fontFamily: "initial"}}>Eliminar integrante
             </h1>
             <div>

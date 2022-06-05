@@ -2,6 +2,7 @@ import emailjs from 'emailjs-com';
 import Input from './Starling/Input';
 import PrimaryButton from './Starling/PrimaryButton';
 import RadioGroup from './Starling/RadioGroup';
+import Navbar from './Starling/Nav.tsx'
 import {useEffect, useState} from "react";
 /**
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
@@ -113,7 +114,7 @@ export default function AppLogin() {
     }, [])
     return (
         <div className="p-3">
-            <div className="bg-white p-5 max-w-md">
+            <div className="max-w-md p-5 bg-white">
                 <form onSubmit={captureFormData}>
                     {[
                         {pl: 'Número de Documento', name: 'id', type: 'text', icon: 'card'},

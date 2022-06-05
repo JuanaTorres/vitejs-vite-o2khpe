@@ -193,15 +193,15 @@ export default function Admin() {
             <h1 style={{fontFamily: "initial"}}>Equipos de Maratón de Programación
             </h1>
             <div className="p-3">
-                <div className="bg-white p-50000 max-w-md">
+                <div className="max-w-md bg-white p-50000">
                     <h2 style={{color: "black"}}>Tabla de equipos</h2>
                     <DataTable1 id="eventsTable" data={users} columns={columns} className="table"
                                 style={{color: "black"}} pagination/>
-                    <button type="button" onClick={imprimirCSV} style={{color: "black"}}>Imprimir CSV
-                    </button>
+                    <PrimaryButton type="button" onClick={imprimirCSV} >Imprimir CSV
+                    </PrimaryButton>
                     <br/>
-                    <button type="button" onClick={EliminarEquipo} style={{color: "black"}}>Eliminar equipos
-                    </button>
+                    <PrimaryButton type="button" onClick={EliminarEquipo} style={{color: "black"}}>Eliminar equipos
+                    </PrimaryButton>
                 </div>
             </div>
         </div>
