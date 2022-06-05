@@ -1,8 +1,12 @@
-/*
+/**
 @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
 @version 1
 Componente de React que maneja el contenido de los botones primarios (Coloridos)
 */
+/**
+ * Funcion que crea los botones
+ * @param props datos pasados
+ */
 export default function PrimaryButton(props: any) {
   let style: string = `
   cursor-pointer

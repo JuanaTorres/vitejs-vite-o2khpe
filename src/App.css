@@ -1,3 +1,5 @@
+/* CSS del app
+*/
 @tailwind base;
 body {
   @apply text-center text-white bg-lime-700;

@@ -7,7 +7,6 @@ import FontAwesomeIcon from './FontAwesomeIcon';
 /**
  * Maneja y modifica los inputs
  * @param props componentes del html
- * @constructor
  */
 export default function ArtemisaInput(props: any) {
   let style: string = `text-black text-left w-full space-y-0.5 ${props.addStyle}`;
