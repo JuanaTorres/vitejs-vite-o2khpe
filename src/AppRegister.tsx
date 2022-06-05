@@ -113,9 +113,11 @@ export default function AppLogin() {
         showData()
     }, [])
     return (
-        <div className="p-3">
-            <div className="max-w-md p-5 bg-white">
-                <form onSubmit={captureFormData}>
+        <div className="flex flex-col w-full h-screen">
+            <Navbar/>
+        <div className="flex flex-row items-center justify-center w-full h-full bg-transparent">
+            <div className="px-5 py-5 bg-white rounded-md space-y-5">
+                <form className="space-y-5" onSubmit={captureFormData}>
                     {[
                         {pl: 'Número de Documento', name: 'id', type: 'text', icon: 'card'},
                         {pl: 'Correo', name: 'email', type: 'email', icon: 'email'},
@@ -123,19 +125,20 @@ export default function AppLogin() {
                     ].map((input) => (
                         <Input key={input.name}
                                placeholder={input.pl} type={input.type}
-                               name={input.name} iconType={input.icon} addStyle="mb-2" required
+                               name={input.name} iconType={input.icon} required
                         />
                     ))}
                     <RadioGroup key="12" list={lenguajes} required/>
-                    <PrimaryButton key="button" type="submit" className="mb-2">Registrar</PrimaryButton>
+                    <PrimaryButton key="button" type="submit" addStyle="mt-2 mb-2">Registrar</PrimaryButton>
                 </form>
                 <div className="text-sm text-black">
                     {'¿Ya estás registrado? '}
                     <a href="/login" className="text-blue-500 underline">
                         ¡Inicia sesión!
                     </a>
-                </div>
             </div>
+        </div>
+        </div>
         </div>
     );
 }

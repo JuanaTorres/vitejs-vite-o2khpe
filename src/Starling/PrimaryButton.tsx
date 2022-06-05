@@ -12,7 +12,7 @@ export default function PrimaryButton(props: any) {
   border border-yellow-700 hover:border-yellow-800 rounded focus:border-yellow-800
   text-sm font-medium text-white
   focus:outline-none focus:ring-2 focus:ring-yellow-300;
-  transition`;
+  transition ${props.addStyle}`;
 
   return (
     <button type={props.type} className={style}>

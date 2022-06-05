@@ -65,8 +65,9 @@ export default function AppLogin() {
 
 
     return (
-        <div className="flex flex-row justify-center w-full h-full bg-transparent">
-            <div className="max-w-md p-5 bg-white h-52">
+        <div className="flex flex-col w-full h-screen">
+        <div className="flex flex-row items-center justify-center w-full h-full bg-transparent">
+            <div className="px-5 py-3 bg-white rounded-md">
                 <form onSubmit={captureFormData}>
                     {[
                         {
@@ -83,18 +84,18 @@ export default function AppLogin() {
                             type={input.type}
                             name={input.name}
                             iconType={input.icon}
-                            addStyle="mb-2"
                         />
                     ))}
-                    <PrimaryButton type="submit" content="Entrar" addStyle="mb-2"/>
+                    <PrimaryButton type="submit" addStyle="mb-3 mt-3">Entrar</PrimaryButton>
                 </form>
-                <div className="text-sm text-black">
+                <div className="mb-3 text-sm text-black">
                     ¿No estás registrado como capitán?{' '}
                     <a href="/register" className="text-blue-500 underline">
                         Regístrate aquí
                     </a>
                 </div>
             </div>
+        </div>
         </div>
     );
 }

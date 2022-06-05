@@ -1,13 +1,13 @@
 @tailwind base;
 body {
-  @apply bg-lime-700 text-white text-center;
+  @apply text-center text-white bg-lime-700;
 }
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
   #root {
-    @apply flex flex-col place-content-center md:h-screen;
+    @apply flex flex-col h-screen;
   }
   .MynaButton {
     

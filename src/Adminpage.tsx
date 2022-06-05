@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import DataTable1 from "react-data-table-component";
 import PrimaryButton from "./Starling/PrimaryButton";
+import Navbar from "./Starling/Nav";
 
 /**
  @autor Juan Castillo, Camila Lozano, Nicolas Peña y Juana Torres
@@ -77,7 +78,7 @@ function cathError(error: any) {
  * @param event
  */
 function imprimirCSV(event: any) {
-   /* fetch("http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos", {
+   fetch("http://localhost:16163/MaratonProgramacion-1.0-SNAPSHOT/api/equipos", {
         method: 'PUT',
         body: JSON.stringify(checkedRows), // checkedRows can be `string` or {object}!
         headers: {
@@ -92,7 +93,7 @@ function imprimirCSV(event: any) {
             return response.text()
         })
         .then(response => confirmarEliminacion(response.toString()))
-        .catch(error => cathError(error));*/
+        .catch(error => cathError(error));
 }
 
 /**
@@ -111,6 +112,7 @@ function validarUsuario() {
         method: 'GET',
         headers: headers,
     }).then((response) => response.text()).then((response) => validarRol(response.toString()))
+       console.log("EUOUA")
 }
 
 /**
@@ -159,6 +161,7 @@ export default function Admin() {
         },
 
     ];
+
     const showData = async () => {
         // @ts-ignore
         var username = atob(window.localStorage.getItem("user"));
@@ -175,6 +178,7 @@ export default function Admin() {
         console.log(data)
         setUsers(data)
     }
+
     useEffect(() => {
         showData()
     }, [])
@@ -188,35 +192,33 @@ export default function Admin() {
 
     return (
         <div>
-            <nav className="NavbarItems">
-                <h1 className="navbar-log" style={{fontFamily: "initial"}}>Bienvenido Administrador<i
-                    className="fas fa-computer-classic">
-                </i>
-                </h1>
-                <div className="menu-icon" onClick={handleClick}>
-                    <i className={state.clicked ? 'fas fa-times' : 'fas fa-computer-classic'}></i>
-                </div>
-                <ul className={state.clicked ? 'nav-menu active' : 'nav-menu'}>
-                    <li>
-                        <a className="nav-links" href="/">
-                            Home
-                        </a>
-                    </li>
-
-                </ul>
-            </nav>
-            <h1 style={{fontFamily: "initial"}}>Equipos de Maratón de Programación
+            <Navbar/>
+            <h1 className="text-xl">Equipos de Maratón de Programación
             </h1>
-            <div className="p-3">
-                <div className="max-w-md bg-white p-50000">
+            <div className="flex flex-row justify-center p-3">
+                <div className="w-4/5 bg-white">
                     <h2 style={{color: "black"}}>Tabla de equipos</h2>
                     <DataTable1 id="eventsTable" data={users} columns={columns} className="table"
                                 style={{color: "black"}} pagination/>
-                    <PrimaryButton type="button" onClick={imprimirCSV} >Imprimir CSV
-                    </PrimaryButton>
+                    <button className="cursor-pointer
+  select-none appearance-none
+  inline-flex px-3 py-2 w-auto items-center justify-center
+  bg-amber-700 hover:bg-yellow-800
+  border border-yellow-700 hover:border-yellow-800 rounded focus:border-yellow-800
+  text-sm font-medium text-white
+  focus:outline-none focus:ring-2 focus:ring-yellow-300;
+  transition" type="button" onClick={imprimirCSV} >Imprimir CSV
+                    </button>
                     <br/>
-                    <PrimaryButton type="button" onClick={EliminarEquipo} style={{color: "black"}}>Eliminar equipos
-                    </PrimaryButton>
+                    <button className="cursor-pointer
+  select-none appearance-none
+  inline-flex px-3 py-2 w-auto items-center justify-center
+  bg-amber-700 hover:bg-yellow-800
+  border border-yellow-700 hover:border-yellow-800 rounded focus:border-yellow-800
+  text-sm font-medium text-white
+  focus:outline-none focus:ring-2 focus:ring-yellow-300;
+  transition" type="button" onClick={EliminarEquipo}>Eliminar equipos
+                    </button>
                 </div>
             </div>
         </div>
