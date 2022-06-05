@@ -1,7 +1,6 @@
-import NavCapitan from "./Navbar"
 import React, {useState, useEffect} from 'react';
 import DataTable1 from "react-data-table-component";
-import Navbar from './Starling/Nav.tsx'
+import Navbar from './Starling/Nav';
 import * as $ from "jquery";
 
 /**
